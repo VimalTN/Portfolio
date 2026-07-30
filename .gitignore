@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# editors
+.vscode/
+.idea/
+
+# working files not needed on the live site (optional — remove if you want them in the repo)
+# spreads/
+# *.pdf
+
+# node (if you add tooling later)
+node_modules/
+.vercel

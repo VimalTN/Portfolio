@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vimal TN — Architect · AI Architect</title>
+<meta name="description" content="Vimal TN — an architect with years of practice in India, now building AI systems for architecture and the built environment. IAAC MaAI 2025–26.">
+
+<!-- Social / link-share preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vimal TN — Architect · AI Architect">
+<meta property="og:description" content="I spent years building architecture. Now I build the systems that build it. One journey, from practice in India to AI systems at IAAC Barcelona.">
+<meta property="og:image" content="assets/og-preview.jpg">
+<meta property="og:url" content="https://vimaltn.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vimal TN — Architect · AI Architect">
+<meta name="twitter:description" content="An architect building AI systems for the built environment.">
+<meta name="twitter:image" content="assets/og-preview.jpg">
+
+<!-- Favicon (inline SVG — clay-red monogram, no extra request) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b5482a'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' fill='%23faf8f3' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f1ea;
+  --surface:#faf8f3;
+  --ink:#1a1815;
+  --ink-soft:#4a463f;
+  --ink-mute:#8a857b;
+  --line:#ded9cd;
+  --accent:#b5482a;
+  --accent-soft:#e7dfd0;
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --maxw:1240px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ---------- scroll progress bar ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:200;transition:width .1s linear}
+
+/* ---------- header ---------- */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(244,241,234,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hdr-in{max-width:var(--maxw);margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:-.01em;white-space:nowrap}
+.brand span{color:var(--accent)}
+.nav{display:flex;gap:26px;align-items:center}
+.nav a{font-size:13.5px;font-weight:500;color:var(--ink-soft);position:relative;padding:4px 0;transition:color .2s}
+.nav a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--accent);transition:width .25s}
+.nav a:hover{color:var(--ink)}
+.nav a.active{color:var(--accent)}
+.nav a.active::after{width:100%}
+.hdr-contact{font-size:13px;color:var(--ink-mute);font-family:var(--mono);white-space:nowrap}
+.hdr-contact a:hover{color:var(--accent)}
+@media(max-width:820px){
+  .nav{gap:16px;font-size:12px}
+  .nav a{font-size:12.5px}
+  .hdr-contact{display:none}
+  .hdr-in{padding:12px 20px}
+}
+@media(max-width:560px){
+  .nav a[data-nav="about"]{display:none}
+}
+
+/* ---------- reveal-on-scroll ---------- */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+
+/* ---------- hero ---------- */
+.hero{max-width:var(--maxw);margin:0 auto;padding:100px 32px 72px}
+.hero-kicker{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6vw,76px);line-height:1.04;letter-spacing:-.02em;max-width:16ch}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{margin-top:32px;font-size:clamp(17px,2vw,21px);color:var(--ink-soft);max-width:60ch;line-height:1.55}
+.hero-cta{margin-top:40px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.badge-avail{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);padding:8px 16px;border-radius:100px}
+.badge-avail .dot{width:8px;height:8px;border-radius:50%;background:#4a8a3f;box-shadow:0 0 0 0 rgba(74,138,63,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,138,63,.5)}70%{box-shadow:0 0 0 7px rgba(74,138,63,0)}100%{box-shadow:0 0 0 0 rgba(74,138,63,0)}}
+@media(prefers-reduced-motion:reduce){.badge-avail .dot{animation:none}}
+.scroll-cue{font-family:var(--mono);font-size:12.5px;color:var(--ink-mute);display:inline-flex;align-items:center;gap:8px}
+.scroll-cue .arrow{animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media(prefers-reduced-motion:reduce){.scroll-cue .arrow{animation:none}}
+
+/* ---------- journey timeline (the transition spine) ---------- */
+.journey{max-width:var(--maxw);margin:0 auto;padding:40px 32px 24px}
+.timeline{position:relative;margin-top:44px;padding-left:8px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom,var(--accent-soft),var(--accent) 20%,var(--accent) 80%,var(--accent-soft))}
+.milestone{position:relative;padding:0 0 40px 44px}
+.milestone:last-child{padding-bottom:8px}
+.milestone .node{position:absolute;left:1px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center}
+.milestone .node::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.milestone.now .node{background:var(--accent)}
+.milestone.now .node::after{background:var(--surface)}
+.milestone .era{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.milestone h3{font-family:var(--serif);font-weight:400;font-size:clamp(21px,2.6vw,27px);letter-spacing:-.01em;margin-top:8px}
+.milestone p{margin-top:8px;font-size:15px;color:var(--ink-soft);max-width:64ch;line-height:1.6}
+
+/* ---------- section shell ---------- */
+.sec-head{max-width:var(--maxw);margin:0 auto;padding:56px 32px 8px}
+.sec-head .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.sec-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4vw,48px);margin-top:12px;letter-spacing:-.02em}
+.sec-head p{margin-top:16px;max-width:62ch;color:var(--ink-soft);font-size:17px}
+
+/* ---------- project ---------- */
+.proj{max-width:var(--maxw);margin:0 auto;padding:56px 32px;border-bottom:1px solid var(--line)}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+@media(max-width:860px){.proj-grid{grid-template-columns:1fr;gap:28px}}
+.proj-hero{aspect-ratio:4/3;background:var(--accent-soft);border-radius:14px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.proj-hero img{width:100%;height:100%;object-fit:cover}
+.proj-hero .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--ink-mute);font-family:var(--mono);font-size:12px;text-align:center;padding:20px}
+.proj-meta{display:flex;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--ink-mute);margin-bottom:18px;align-items:center}
+.badge{background:var(--accent);color:var(--surface);padding:3px 10px;border-radius:100px;font-weight:500;letter-spacing:.02em}
+.proj h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.5vw,40px);letter-spacing:-.02em;line-height:1.05}
+.proj .subtitle{margin-top:10px;font-size:16px;color:var(--ink-soft);font-style:italic;font-family:var(--serif)}
+.hook{margin-top:24px;font-size:19px;line-height:1.5;color:var(--ink);font-family:var(--serif);font-weight:400}
+.body-txt{margin-top:18px;font-size:15px;color:var(--ink-soft);line-height:1.65}
+.role{margin-top:18px;font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);background:var(--surface);border-left:2px solid var(--accent);padding:9px 14px;border-radius:0 8px 8px 0}
+.role b{color:var(--accent);font-weight:500}
+.role[data-role-todo]{border-left-style:dashed;color:var(--ink-mute)}
+.tags{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:12px;font-family:var(--mono);color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);padding:5px 12px;border-radius:100px}
+.stats{margin-top:22px;font-family:var(--mono);font-size:12.5px;color:var(--ink-mute);letter-spacing:.01em}
+.links{margin-top:26px;display:flex;gap:20px;flex-wrap:wrap}
+.links a{font-size:13px;font-weight:500;color:var(--accent);display:inline-flex;align-items:center;gap:6px;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .2s}
+.links a:hover{border-color:var(--accent)}
+.quote{margin-top:26px;padding-left:18px;border-left:2px solid var(--accent);font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink-soft)}
+
+/* ---------- about + contact ---------- */
+.about{max-width:var(--maxw);margin:0 auto;padding:80px 32px}
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
+@media(max-width:820px){.about-grid{grid-template-columns:1fr;gap:32px}}
+.about-portrait{aspect-ratio:4/5;max-width:320px;background:var(--accent-soft);border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative}
+.about-portrait img{width:100%;height:100%;object-fit:cover}
+.about-portrait .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;color:var(--ink-mute);font-family:var(--mono);font-size:11px;text-align:center;padding:16px}
+.about h2{font-family:var(--serif);font-weight:300;font-size:34px;letter-spacing:-.02em}
+.about p{margin-top:18px;color:var(--ink-soft);font-size:16px;line-height:1.7}
+.skills{margin-top:28px;display:flex;flex-direction:column;gap:18px}
+.skill-row .lab{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);margin-bottom:8px}
+.skill-row .items{display:flex;gap:8px;flex-wrap:wrap}
+.foot{background:var(--ink);color:var(--surface);padding:72px 32px}
+.foot-in{max-width:var(--maxw);margin:0 auto}
+.foot h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,5vw,54px);letter-spacing:-.02em;max-width:14ch}
+.foot h2 em{font-style:italic;color:#e8a48f}
+.foot-links{margin-top:36px;display:flex;gap:28px;flex-wrap:wrap;font-family:var(--mono);font-size:14px}
+.foot-links a{border-bottom:1px solid #4a463f;padding-bottom:3px}
+.foot-links a:hover{border-color:#e8a48f;color:#e8a48f}
+.foot-btm{margin-top:56px;padding-top:24px;border-top:1px solid #35322c;font-family:var(--mono);font-size:12px;color:#8a857b;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body id="top">
+
+<div class="progress" id="progress"></div>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <a href="#top" class="brand">Vimal TN<span>.</span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#journey" data-nav="journey">Journey</a>
+      <a href="#architecture" data-nav="architecture">Architecture</a>
+      <a href="#work" data-nav="work">AI Work</a>
+      <a href="#about" data-nav="about">About</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+    </nav>
+    <div class="hdr-contact"><a href="mailto:ar.vimaltn@gmail.com">ar.vimaltn@gmail.com</a></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="hero-kicker">Architect · AI for the Built Environment</div>
+    <h1>I spent years <em>building</em> architecture. Now I build the <em>systems</em> that build it.</h1>
+    <p class="hero-sub">An architect with hands-on practice across core design, urban study, and delivery in India — now at IAAC Barcelona, designing AI systems that read cities, diagnose buildings, and rethink how architecture is planned, made, and maintained.</p>
+    <div class="hero-cta">
+      <span class="badge-avail"><span class="dot"></span>Available — open to AI Architect roles</span>
+      <a href="#journey" class="scroll-cue">Scroll the journey <span class="arrow">↓</span></a>
+    </div>
+  </section>
+
+  <!-- ===================== JOURNEY (transition spine) ===================== -->
+  <section class="journey" id="journey">
+    <div class="sec-head" style="padding-left:0;padding-right:0;padding-top:0">
+      <div class="eyebrow">The Journey — one continuous line</div>
+      <h2>From practice in India to AI systems in Barcelona</h2>
+      <p>Not a career change — a continuation. Every AI system below is shaped by years of real architectural practice. Here's the line that connects them.</p>
+    </div>
+    <div class="timeline">
+      <div class="milestone reveal">
+        <span class="node"></span>
+        <div class="era">The foundation · India</div>
+        <h3>Architecture practice with CREV Architects</h3>
+        <p>Years in core design, documentation, and delivery — real sites, real clients, real constraints. The ground everything since is built on.</p>
+      </div>
+      <div class="milestone reveal">
+        <span class="node"></span>
+        <div class="era">Grounding · India</div>
+        <h3>Undergraduate thesis &amp; urban study</h3>
+        <p>Early research into how buildings and cities actually behave — the questions that later became data problems.</p>
+      </div>
+      <div class="milestone reveal">
+        <span class="node"></span>
+        <div class="era">The pivot · Barcelona</div>
+        <h3>IAAC — Master in AI for the Built Environment</h3>
+        <p>2025–26. Trading drawings for systems: computer vision, machine learning, GIS, robotics — all pointed back at architecture's oldest problems.</p>
+      </div>
+      <div class="milestone reveal now">
+        <span class="node"></span>
+        <div class="era">Now</div>
+        <h3>AI Architect — systems that read, decide, and act</h3>
+        <p>Five projects, from urban heat triage to autonomous robotic repair. Same discipline, new tools. The work is below.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ARCHITECTURE — FOUNDATION ===================== -->
+  <section id="architecture">
+    <div class="sec-head">
+      <div class="eyebrow">01 — Architecture Practice · India</div>
+      <h2>The foundation — design, urban study, and built work</h2>
+      <p>Years of core architectural practice in partnership with CREV Architects, alongside an undergraduate thesis and urban studies. Selected work below — the full practice archive lives on the dedicated CREV Architects site.</p>
+    </div>
+
+    <!-- Undergraduate Thesis -->
+    <article class="proj reveal">
+      <div class="proj-grid">
+        <div class="proj-hero" data-img="assets/projects/thesis/hero.jpg"><div class="ph">HERO — thesis project<br>(assets/projects/thesis/hero.jpg)</div></div>
+        <div>
+          <div class="proj-meta"><span>Year</span> <span>Undergraduate Thesis</span></div>
+          <h3>Thesis Project</h3>
+          <div class="subtitle">Subtitle to come</div>
+          <p class="hook">One-line hook describing the thesis and why it mattered.</p>
+          <p class="body-txt">Description to come — problem, approach, outcome, in the same voice as the AI projects.</p>
+          <div class="tags"><span class="tag">Architecture</span><span class="tag">Thesis</span><span class="tag">Research</span></div>
+          <div class="links"><a href="#" data-link="crev-thesis" target="_blank" rel="noopener">View on CREV Architects ↗</a></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Urban Study -->
+    <article class="proj reveal">
+      <div class="proj-grid">
+        <div class="proj-hero" data-img="assets/projects/urban/hero.jpg"><div class="ph">HERO — urban study<br>(assets/projects/urban/hero.jpg)</div></div>
+        <div>
+          <div class="proj-meta"><span>Year</span> <span>Urban Study</span></div>
+          <h3>Urban Study</h3>
+          <div class="subtitle">Subtitle to come</div>
+          <p class="hook">One-line hook.</p>
+          <p class="body-txt">Description to come — the study, the method, what it revealed.</p>
+          <div class="tags"><span class="tag">Urban Design</span><span class="tag">Research</span></div>
+          <div class="links"><a href="#" data-link="crev-urban" target="_blank" rel="noopener">View on CREV Architects ↗</a></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CREV Built Work -->
+    <article class="proj reveal" style="border-bottom:none">
+      <div class="proj-grid">
+        <div class="proj-hero" data-img="assets/projects/crev/hero.jpg"><div class="ph">HERO — CREV built project<br>(assets/projects/crev/hero.jpg)</div></div>
+        <div>
+          <div class="proj-meta"><span>Year</span> <span>CREV Architects</span> <span>Built</span></div>
+          <h3>CREV Architects — Built Work</h3>
+          <div class="subtitle">Subtitle to come</div>
+          <p class="hook">One-line hook describing a built project and your part in delivering it.</p>
+          <p class="body-txt">Description to come — role, scope, delivery. Same voice as the AI projects.</p>
+          <div class="tags"><span class="tag">Core Architecture</span><span class="tag">Delivery</span><span class="tag">Built</span></div>
+          <div class="links"><a href="#" data-link="crev-site" target="_blank" rel="noopener">Explore CREV Architects ↗</a></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===================== AI ARCHITECT — NOW ===================== -->
+  <section id="work">
+    <div class="sec-head">
+      <div class="eyebrow">02 — AI Architect · IAAC MaAI 2025–26</div>
+      <h2>Systems that read, decide, and act on the built environment</h2>
+      <p>Five projects across generative AI, urban data, robotics, and interactive systems — each grounded in a real architectural problem, from heat vulnerability to autonomous repair.</p>
+    </div>
+
+    <!-- OASIS -->
+    <article class="proj reveal" id="oasis">
+      <div class="proj-grid">
+        <div class="proj-hero" data-img="assets/projects/oasis/hero.jpg">
+          <div class="ph">HERO — 3D heat-vulnerability city<br>(assets/projects/oasis/hero.jpg)</div>
+        </div>
+        <div>
+          <div class="proj-meta"><span class="badge">🏆 Best Project Award — IAAC</span> <span>2026</span> <span>Research Studio</span></div>
+          <h3>OASIS</h3>
+          <div class="subtitle">Overheating Assessment System for Intervention Strategies</div>
+          <p class="hook">One connected system for heat adaptation — from city triage to a single room.</p>
+          <p class="body-txt">Draw a zone and OASIS fuses live satellite, cadastral, and census data into a building-level heat-vulnerability index. It tests urban measures first — trees, cool surfaces, shade — and a decision gate rules on whether building retrofit is even needed. Buildings that stay at risk escalate to room-by-room IFC diagnosis and ranked passive retrofits.</p>
+          <p class="role" data-role-todo><b>My role —</b> add one line (⚠️ placeholder)</p>
+          <div class="tags"><span class="tag">Urban Heat</span><span class="tag">Multi-Scale</span><span class="tag">GIS</span><span class="tag">Climate Adaptation</span><span class="tag">Retrofit AI</span></div>
+          <div class="stats">12 factors · 9 live data sources · ~60s per zone · building-level resolution</div>
+          <p class="quote">"The data to save her existed all along. OASIS puts it in the same room."</p>
+          <div class="links">
+            <a href="https://github.com/helios0007/HVRA" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="#" data-link="linkedin" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- GROUND BENEATH GROWTH -->
+    <article class="proj reveal" id="growth">
+      <div class="proj-grid">
+        <div class="proj-hero" data-img="assets/projects/growth/hero.jpg">
+          <div class="ph">HERO — installation table, projection + visitors<br>(assets/projects/growth/hero.jpg)</div>
+        </div>
+        <div>
+          <div class="proj-meta"><span>2026</span> <span>AI for All</span> <span>UIA Barcelona</span></div>
+          <h3>The Ground Beneath Growth</h3>
+          <div class="subtitle">Visualizing the ecological cost of growth — Barcelona–El Prat &amp; the Llobregat Delta</div>
+          <p class="hook">An interactive installation that lets the public decide the future of Catalonia's last great coastal wetland.</p>
+          <p class="body-txt">Forty years of real geospatial data — land, heat, traffic, life — projected onto a laser-engraved terrain board, driven by a tablet embedded in the table edge. Visitors walk a three-act arc: observe, explore, decide. Every layer is authoritative public data, with aircraft streaming live from OpenSky as they watch. Then they vote on the delta's 2050.</p>
+          <p class="role" data-role-todo><b>My role —</b> add one line (⚠️ placeholder)</p>
+          <div class="tags"><span class="tag">Interactive Installation</span><span class="tag">GIS</span><span class="tag">Data Activism</span><span class="tag">Real-Time</span></div>
+          <div class="stats">221 km² · 9 epochs 1985–2025 · 9 public datasets · FastAPI · SSE</div>
+          <p class="quote">"The ground beneath growth is never free. This installation lets everyone weigh the cost — together."</p>
+          <div class="links">
+            <a href="https://ai4all-gis-sim-interface.onrender.com" target="_blank" rel="noopener">Live demo ↗</a>
+            <a href="https://github.com/VimalTN/AI4ALL_GIS-Sim_Interface" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- PLUG & GROW -->
+    <article class="proj reveal" id="pluggrow">
+      <div class="proj-grid">
+        <div class="proj-hero" data-img="assets/projects/pluggrow/hero.jpg">
+          <div class="ph">HERO — rooftop greenhouse module render<br>(assets/projects/pluggrow/hero.jpg)</div>
+        </div>
+        <div>
+          <div class="proj-meta"><span>2026</span> <span>Research Studio</span></div>
+          <h3>Plug &amp; Grow</h3>
+          <div class="subtitle">An autonomous cultivation module driven by an AI brain</div>
+          <p class="hook">A plug-and-play cultivation module that turns any idle surface into farmland.</p>
+          <p class="body-txt">A 4×4 m solar-powered greenhouse for rooftops and leftover urban ground. Three ML models — water prediction, disease detection, and network scheduling — fuse into autonomous decisions, scaling from a single unit to a 233-module Barcelona grid. Tested against real, honestly-reported agricultural data: we caught our own 99% as data leakage and published the honest 40%.</p>
+          <p class="role" data-role-todo><b>My role —</b> add one line (⚠️ placeholder)</p>
+          <div class="tags"><span class="tag">Machine Learning</span><span class="tag">Urban Agriculture</span><span class="tag">Digital Twin</span><span class="tag">Edge AI</span></div>
+          <div class="stats">4×4 m module · 60% water saving target · 1,764 ha rooftop potential (BCN)</div>
+          <p class="quote">"Urban farming is not about teaching people to farm — it's about giving every idle surface a brain that already knows how."</p>
+          <div class="links">
+            <a href="https://github.com/rojda34/Holy-Woah---Smart-Farming" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://blog.iaac.net/holy-woah/" target="_blank" rel="noopener">IAAC Blog ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CHRONOSCAPE -->
+    <article class="proj reveal" id="chronoscape">
+      <div class="proj-grid">
+        <div class="proj-hero" data-img="assets/projects/chronoscape/hero.jpg">
+          <div class="ph">HERO — rebuilt neighbourhood memory output<br>(assets/projects/chronoscape/hero.jpg)</div>
+        </div>
+        <div>
+          <div class="proj-meta"><span>2025</span> <span>Research Studio</span></div>
+          <h3>Chronoscape</h3>
+          <div class="subtitle">Rebuilding reality from fragments of memory and lived experience</div>
+          <p class="hook">An image-generation workflow that treats memory as design input for urban regeneration.</p>
+          <p class="body-txt">Tested on the 2025 Palisades Fire, Chronoscape structures residents' narratives and photographs into a memory layer that grounds AI reconstruction in the lived city — preserving real street geometry and neighbourhood identity where standard models hallucinate generic form. It scales from a single resident's home to collective, neighbourhood-scale memoryscapes.</p>
+          <p class="role" data-role-todo><b>My role —</b> add one line (⚠️ placeholder)</p>
+          <div class="tags"><span class="tag">Generative AI</span><span class="tag">Memory</span><span class="tag">Urban Regeneration</span><span class="tag">Image Generation</span></div>
+          <div class="stats">Team of 4 · Palisades testbed · published on IAAC Blog</div>
+          <p class="quote">"Memory-based reconstruction is not about geometric accuracy — it's about recovering what cameras cannot capture."</p>
+          <div class="links">
+            <a href="https://blog.iaac.net/chronoscape/" target="_blank" rel="noopener">IAAC Blog ↗</a>
+            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7414961806747852801/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- RE:PAIR -->
+    <article class="proj reveal" id="repair" style="border-bottom:none">
+      <div class="proj-grid">
+        <div class="proj-hero" data-img="assets/projects/repair/hero.jpg">
+          <div class="ph">HERO — UR10 arm mid-repair on the wall<br>(assets/projects/repair/hero.jpg)</div>
+        </div>
+        <div>
+          <div class="proj-meta"><span>2026</span> <span>Hardware II</span> <span>MRAC / MaAI</span></div>
+          <h3>RE:PAIR</h3>
+          <div class="subtitle">Perception-driven, decision-visible closed-loop robotic repair</div>
+          <p class="hook">A robot that sees a crack, plans the fix, repairs it, and checks its own work.</p>
+          <p class="body-txt">A YOLOv8 model detects and masks structural cracks; a UR10 arm 3D-prints the repair and re-scans to verify. Every decision is surfaced live in a ROS2 observability interface, so the robot stops behaving like a black box. The hard part wasn't the model — it was integration: a discipline, not a bug.</p>
+          <p class="role" data-role-todo><b>My role —</b> add one line (⚠️ placeholder)</p>
+          <div class="tags"><span class="tag">Computer Vision</span><span class="tag">ROS2</span><span class="tag">Robotic Fabrication</span><span class="tag">YOLOv8</span></div>
+          <div class="stats">YOLOv8 nano-seg · mAP50 0.514 · 46.6 ms/image · UR10 · Repairman Stack v1.0</div>
+          <p class="quote">"We made the robot's reasoning visible — because a repair you can't inspect is a repair you can't trust."</p>
+          <div class="links">
+            <a href="#" data-link="video" target="_blank" rel="noopener">Demo video ↗</a>
+            <a href="#" data-link="linkedin" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="about-portrait" data-img="assets/images/portrait.jpg">
+          <div class="ph">PORTRAIT<br>(assets/images/portrait.jpg)</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h2>About</h2>
+        <p>I'm Vimal — an architect who spent years in practice before turning to AI. My work sits where the two meet: I use computational and machine-learning systems to solve problems architecture has always had — how to read a city, diagnose a building, adapt to a changing climate — but faster, at scale, and grounded in real data.</p>
+        <p>Currently completing the Master in AI for Architecture and the Built Environment at IAAC, Barcelona.</p>
+        <div class="skills">
+          <div class="skill-row">
+            <div class="lab">AI / ML / Vision</div>
+            <div class="items"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">YOLOv8</span><span class="tag">SAM</span><span class="tag">Stable Diffusion</span><span class="tag">Scikit-learn</span></div>
+          </div>
+          <div class="skill-row">
+            <div class="lab">Computational / Spatial</div>
+            <div class="items"><span class="tag">Grasshopper</span><span class="tag">Rhino</span><span class="tag">GIS</span><span class="tag">ROS2</span><span class="tag">FastAPI</span></div>
+          </div>
+          <div class="skill-row">
+            <div class="lab">Architecture</div>
+            <div class="items"><span class="tag">Design</span><span class="tag">Urban Study</span><span class="tag">Documentation</span><span class="tag">Delivery</span><span class="tag">AutoCAD</span><span class="tag">Revit</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot" id="contact">
+  <div class="foot-in">
+    <h2>Let's build the <em>next</em> thing.</h2>
+    <div class="foot-links">
+      <a href="mailto:ar.vimaltn@gmail.com">ar.vimaltn@gmail.com</a>
+      <a href="#" data-link="linkedin" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/VimalTN" target="_blank" rel="noopener">GitHub</a>
+      <a href="#" data-link="resume">Résumé (PDF)</a>
+    </div>
+    <div class="foot-btm">
+      <span>Vimal TN © 2026 · IAAC Barcelona · MaAI</span>
+      <span>Architect → AI Architect</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- graceful image loader: swap in real images/portrait when the file exists ----
+document.querySelectorAll('[data-img]').forEach(function(box){
+  var src=box.getAttribute('data-img');
+  var img=new Image();
+  img.onload=function(){box.innerHTML='';box.appendChild(img);};
+  img.alt=''; img.src=src;
+});
+
+// ---- reveal-on-scroll ----
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduce){
+  document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+}else if('IntersectionObserver' in window){
+  var revObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); revObs.unobserve(e.target); } });
+  },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){revObs.observe(el);});
+}else{
+  document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
+}
+
+// ---- scrollspy: highlight active nav link ----
+var navLinks=Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+var sections=navLinks.map(function(a){return document.getElementById(a.getAttribute('data-nav'));}).filter(Boolean);
+if('IntersectionObserver' in window && sections.length){
+  var spyObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        navLinks.forEach(function(a){a.classList.toggle('active', a.getAttribute('data-nav')===e.target.id);});
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+  sections.forEach(function(s){spyObs.observe(s);});
+}
+
+// ---- top scroll-progress bar ----
+var bar=document.getElementById('progress');
+function onScroll(){
+  var h=document.documentElement;
+  var max=h.scrollHeight-h.clientHeight;
+  bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+</script>
+</body>
+</html>
