@@ -76,6 +76,19 @@ Drop a file at `assets/projects/<slug>/hero.jpg`. Slugs:
 The page auto-detects and swaps images in; until then it shows a labelled placeholder.
 Recapture UI screenshots at 2–3× so they don't pixelate.
 
+## Enabling the contact form (EmailJS — optional)
+
+The contact form works out of the box: with no keys set it opens the visitor's email app
+pre-filled. To send messages in-page instead, create a free account at
+[emailjs.com](https://www.emailjs.com), then fill the three constants at the top of the
+`<script>` in `index.html`:
+
+```js
+var EMAILJS_PUBLIC_KEY  = "…";   // Account → API keys
+var EMAILJS_SERVICE_ID  = "…";   // Email Services
+var EMAILJS_TEMPLATE_ID = "…";   // Email Templates (use vars: from_name, reply_to, message)
+```
+
 ## Still-to-fill placeholders (search these in `index.html`)
 
 - **`data-role-todo`** — each AI project has a `My role — add one line` placeholder. Replace the

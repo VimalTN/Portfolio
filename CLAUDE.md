@@ -27,6 +27,15 @@ Hero line currently: "I spent years building architecture. Now I build the syste
   start until now**: Hero → Journey timeline (the "transition spine") → **Architecture foundation**
   → **AI Architect work** → About → Contact. Chronological arc — architecture (the start) comes
   before the AI work (now).
+- **Fixed left sidebar nav** (numbered 01–05, scrollspy active-state, inline-SVG social icons,
+  "open to roles" dot). Collapses to a top bar + hamburger drawer below 900px. Modelled loosely
+  on the reference site (thayaa-portfolio) but kept editorial — NO custom cursor / animated
+  backgrounds / gradient overload / right-click-disable (deliberately rejected as off-brand).
+- **Rotating hero phrase** — vanilla typewriter in the kicker ("Focus — …") cycling domains.
+- **Working contact form** — EmailJS (`@emailjs/browser@4` via CDN). Keys are placeholders
+  (`EMAILJS_PUBLIC_KEY/SERVICE_ID/TEMPLATE_ID` at top of the `<script>`); until filled the form
+  gracefully falls back to opening the visitor's mail client via `mailto:`.
+- **JSON-LD** Person schema in `<head>` for SEO / recruiter previews.
 - **Architecture is featured here** as a real section, but the in-depth practice archive lives on
   a **separate CREV Architects website**; architecture cards link out to it
   (`data-link="crev-*"` placeholders until the CREV site URL exists).
