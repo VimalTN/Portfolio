@@ -13,3 +13,11 @@ Thumbs.db
 # node (if you add tooling later)
 node_modules/
 .vercel
+
+# agent skills / local tooling (installed via `npx skills add`) — not part of the site
+.agents/
+.claude/
+skills-lock.json
+
+# image backups
+*_original.jpg

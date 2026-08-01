@@ -1,0 +1,4 @@
+# Keep planning/source docs and folder-markers off the live site
+*.md
+spreads/
+assets/**/_READ_ME*.txt
